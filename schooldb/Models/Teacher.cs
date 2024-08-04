@@ -12,6 +12,7 @@ namespace schooldb.Models
         public string TeacherFname;
         public string TeacherLname;
         public string EmployeeNumber;
+        
 
     }
 }
