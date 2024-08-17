@@ -18,7 +18,8 @@ nav{
 }
 .navlink{
     
-    float: right;
+    float: left;
+    margin-right: 15px;
 }
 
 .dellink{

@@ -8,6 +8,7 @@ using System.Web.Http;
 using schooldb.Models;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
+using Org.BouncyCastle.Asn1.X9;
 
 namespace schooldb.Controllers
 {
@@ -164,6 +165,31 @@ namespace schooldb.Controllers
             cmd.ExecuteNonQuery();
 
             Conn.Close();
+        }
+
+
+
+        public void UpdateTeacher(int id, [FromBody]Teacher TeacherInfo)
+        {
+            MySqlConnection Conn = school.AccessDatabase();
+
+            Debug.WriteLine(TeacherInfo.TeacherFname);
+
+            Conn.Open();
+
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            cmd.CommandText = "update teachers set teacherfname=@TeacherFname, teacherlname=@TeacherLname, employeenumber=@EmployeeNumber where teacherid=@TeacherId";
+            cmd.Parameters.AddWithValue("@TeacherFname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", TeacherInfo.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@TeacherId", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
         }
     }
 }
